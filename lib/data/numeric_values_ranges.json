@@ -1,0 +1,17 @@
+{"age": {"max": 22, "min": 15},
+ "Medu": {"max": 4, "min": 0},
+ "Fedu": {"max": 4, "min": 0},
+ "traveltime": {"max": 4, "min": 1},
+ "studytime": {"max": 4, "min": 1},
+ "failures": {"max": 3, "min": 0},
+ "famrel": {"max": 5, "min": 1},
+ "freetime": {"max": 5, "min": 1},
+ "goout": {"max": 5, "min": 1},
+ "Dalc": {"max": 5, "min": 1},
+ "Walc": {"max": 5, "min": 1},
+ "health": {"max": 5, "min": 1},
+ "absences": {"max": 75, "min": 0},
+ "G1": {"max": 19, "min": 3},
+ "G2": {"max": 19, "min": 0},
+ "G3": {"max": 20, "min": 0}
+}
