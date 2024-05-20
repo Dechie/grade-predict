@@ -1,0 +1,17 @@
+{
+  "sex": {"F": 0, "M": 1},
+  "address": {"U": 1, "R": 0},
+  "famsup": {"no": 0, "yes": 1},
+  "Mjob": {"at_home": 0, "health": 1, "other": 2, "services": 3, "teacher": 4},
+  "Fjob": {"teacher": 4, "other": 2, "services": 3, "health": 1, "at_home": 0},
+  "school": {"GP": 0, "MS": 1},
+  "nursery": {"yes": 1, "no": 0},
+  "Pstatus": {"A": 0, "T": 1},
+  "guardian": {"mother": 1, "father": 0, "other": 2},
+  "famsize": {"GT3": 0, "LE3": 1},
+  "schoolsup": {"yes": 1, "no": 0},
+  "reason": {"course": 0, "other": 2, "home": 1, "reputation": 3},
+  "higher": {"yes": 1, "no": 0},
+  "internet": {"no": 0, "yes": 1},
+  "romantic": {"no": 0, "yes": 1}
+}

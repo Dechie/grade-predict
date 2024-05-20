@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:mlbasic/api/api.dart';
 import 'package:mlbasic/screens/analysis_page.dart';
 import 'package:mlbasic/screens/questionnair_page.dart';
 import 'package:mlbasic/screens/secondpage.dart';
@@ -14,6 +15,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    apiInst();
+  }
+
+  Future<void> apiInst() async {
+    var api = await Api.create();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
