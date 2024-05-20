@@ -1,0 +1,6 @@
+ python app.py
+Traceback (most recent call last):
+  File "/home/user/proj_dir/app.py", line 5, in <module>
+    from torchvision import models
+ModuleNotFoundError: No module named 'torchvision'
+
