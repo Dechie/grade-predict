@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'dart:math';
+import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 
@@ -38,5 +40,28 @@ class Api {
     return revv;
   }
 
-  sendRequest(Map<String, dynamic> dataDecode) {}
+  Future<double> sendRequest(Map<String, dynamic> dataDecode) async {
+    var dio = Dio();
+    double prediction = 0.0;
+    for (var ent in dataDecode.entries) {
+      print("${ent.key}: ${ent.value.runtimeType}");
+    }
+
+    var response;
+
+    try {
+      response = await dio.post(
+        "http://127.0.0.1:5000/predict",
+        data: dataDecode,
+      );
+
+      if (response.statusCode == 200) {
+        print(response.data);
+        prediction = response.data["prediction"][0];
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+    return prediction;
+  }
 }

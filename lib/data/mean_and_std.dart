@@ -1,4 +1,4 @@
-var mean_data = {
+ var mean_data = {
   'school': 0.116456,
   'sex': 0.473418,
   'age': 16.696203,

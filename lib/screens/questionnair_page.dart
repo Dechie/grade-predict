@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:mlbasic/screens/results_page.dart';
 import 'package:mlbasic/screens/secondpage.dart';
 import 'package:mlbasic/widgets/text_widget.dart';
 
@@ -1298,7 +1299,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
     Map<String, dynamic> dataDecode =
         await encodeNonNumericData(nonNumericData);
     Map<String, dynamic> theRestOfData = {
-      "age": _age,
+      "age": int.parse(_age),
       "Medu": _mEdu,
       "Fedu": _fEdu,
       "traveltime": _travelTime,
@@ -1314,7 +1315,11 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
     print(dataDecode);
 
     var api = await Api.create();
-    await api.sendRequest(dataDecode);
+    double pred = await api.sendRequest(dataDecode);
+
+    if (mounted) {
+      navigateTo(context, ResultsPage(prediction: pred));
+    }
   }
 
   Future<Map<String, dynamic>> encodeNonNumericData(
