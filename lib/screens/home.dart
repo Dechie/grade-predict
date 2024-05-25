@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:mlbasic/api/api.dart';
 import 'package:mlbasic/screens/analysis_page.dart';
 import 'package:mlbasic/screens/questionnair_page.dart';
-import 'package:mlbasic/screens/secondpage.dart';
 import 'package:mlbasic/utils.dart';
 
 class HomePage extends StatefulWidget {

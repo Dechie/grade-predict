@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'dart:math';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
@@ -47,7 +45,7 @@ class Api {
       print("${ent.key}: ${ent.value.runtimeType}");
     }
 
-    var response;
+    Response response;
 
     try {
       response = await dio.post(

@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:mlbasic/models/option.dart';
+import 'package:mlbasic/screens/options_one_row.dart';
 import 'package:mlbasic/screens/results_page.dart';
 import 'package:mlbasic/screens/secondpage.dart';
 import 'package:mlbasic/widgets/text_widget.dart';
@@ -110,76 +112,23 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.stretch,
                                         children: <Widget>[
-                                          // Sex
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Text(
-                                                'Which School Do You Go To?',
-                                                style:
-                                                    TextStyle(fontSize: 18.0),
-                                              ),
-                                              Row(
-                                                children: <Widget>[
-                                                  Radio(
-                                                    value: 'GP',
-                                                    groupValue: _school,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _school = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  Text('GP'),
-                                                  Radio(
-                                                    value: 'MS',
-                                                    groupValue: _school,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _school = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  Text('MS'),
-                                                ],
-                                              ),
+                                          OptionsOneRow(
+                                            question:
+                                                "Which School Do you Go To?",
+                                            options: const [
+                                              Option(text: "GP", value: "GP"),
+                                              Option(text: "MS", value: "MS"),
                                             ],
+                                            groupValue: _school,
                                           ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              const Text(
-                                                'What is you Gender?',
-                                                style:
-                                                    TextStyle(fontSize: 18.0),
-                                              ),
-                                              Row(
-                                                children: <Widget>[
-                                                  Radio(
-                                                    value: 'F',
-                                                    groupValue: _sex,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _sex = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('Female'),
-                                                  Radio(
-                                                    value: 'M',
-                                                    groupValue: _sex,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _sex = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('Male'),
-                                                ],
-                                              ),
+                                          OptionsOneRow(
+                                            question: 'What is you Gender?',
+                                            options: const [
+                                              Option(
+                                                  text: "Female", value: "F"),
+                                              Option(text: "Male", value: "M"),
                                             ],
+                                            groupValue: _sex,
                                           ),
                                           Column(
                                             crossAxisAlignment:
@@ -214,114 +163,45 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                           ),
                                           const SizedBox(height: 10),
                                           // Address
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              const Text(
-                                                'Where do you live?',
-                                                style:
-                                                    TextStyle(fontSize: 18.0),
-                                              ),
-                                              Row(
-                                                children: <Widget>[
-                                                  Radio(
-                                                    value: 'U',
-                                                    groupValue: _address,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _address = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  Text('Urban'),
-                                                  Radio(
-                                                    value: 'R',
-                                                    groupValue: _address,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _address = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  Text('Rural'),
-                                                ],
-                                              ),
+                                          OptionsOneRow(
+                                            question: "Where do you live",
+                                            options: const [
+                                              Option(text: "City", value: "U"),
+                                              Option(
+                                                  text: "CountrySide",
+                                                  value: "R"),
                                             ],
+                                            groupValue: _address,
                                           ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Text(
+                                          OptionsOneRow(
+                                            question:
                                                 'What is the size of your Family?',
-                                                style:
-                                                    TextStyle(fontSize: 18.0),
+                                            options: const [
+                                              Option(
+                                                text: '3 and below',
+                                                value: 'LE3',
                                               ),
-                                              Row(
-                                                children: <Widget>[
-                                                  Radio(
-                                                    value: 'LE3',
-                                                    groupValue: _famSize,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _famSize = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  Text('3 and below'),
-                                                  Radio(
-                                                    value: 'GT3',
-                                                    groupValue: _famSize,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _famSize = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  Text('More than 3'),
-                                                ],
-                                              ),
+                                              Option(
+                                                  text: 'More than 3',
+                                                  value: "GT3"),
                                             ],
+                                            groupValue: _famSize,
                                           ),
-                                          // FamSup
 
-                                          // FamSup
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Text(
+                                          OptionsOneRow(
+                                            question:
                                                 'Do you live with your parents or away from them?',
-                                                style:
-                                                    TextStyle(fontSize: 18.0),
+                                            options: const [
+                                              Option(
+                                                text: 'Away',
+                                                value: 'A',
                                               ),
-                                              Row(
-                                                children: <Widget>[
-                                                  Radio(
-                                                    value: 'A',
-                                                    groupValue: _pStatus,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _pStatus = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  Text('Away'),
-                                                  Radio(
-                                                    value: 'T',
-                                                    groupValue: _pStatus,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _pStatus = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  Text('Together'),
-                                                ],
-                                              ),
+                                              Option(
+                                                  text: 'Together', value: "T"),
                                             ],
+                                            groupValue: _pStatus,
                                           ),
+
                                           Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -344,7 +224,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('None'),
+                                                  const Text('None'),
                                                   Radio(
                                                     value: '1',
                                                     groupValue:
@@ -356,7 +236,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('4th grade'),
+                                                  const Text('4th grade'),
                                                 ],
                                               ),
                                               Row(
@@ -372,7 +252,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('5-9th Grade'),
+                                                  const Text('5-9th Grade'),
                                                   Radio(
                                                     value: '3',
                                                     groupValue:
@@ -384,7 +264,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('Secondary'),
+                                                  const Text('Secondary'),
                                                 ],
                                               ),
                                             ],
@@ -411,7 +291,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('None'),
+                                                  const Text('None'),
                                                   Radio(
                                                     value: '1',
                                                     groupValue:
@@ -423,7 +303,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('4th grade'),
+                                                  const Text('4th grade'),
                                                 ],
                                               ),
                                               Row(
@@ -439,7 +319,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('5-9th Grade'),
+                                                  const Text('5-9th Grade'),
                                                   Radio(
                                                     value: '3',
                                                     groupValue:
@@ -451,7 +331,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('Secondary'),
+                                                  const Text('Secondary'),
                                                 ],
                                               ),
                                             ],
@@ -476,7 +356,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('housewife'),
+                                                  const Text('housewife'),
                                                   Radio(
                                                     value: 'health',
                                                     groupValue: _mJob,
@@ -486,7 +366,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('health'),
+                                                  const Text('health'),
                                                 ],
                                               ),
                                               Row(
@@ -500,7 +380,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('Services'),
+                                                  const Text('Services'),
                                                   Radio(
                                                     value: 'teacher',
                                                     groupValue: _mJob,
@@ -510,7 +390,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('Teacher'),
+                                                  const Text('Teacher'),
                                                   Radio(
                                                     value: 'other',
                                                     groupValue: _mJob,
@@ -520,7 +400,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('Other'),
+                                                  const Text('Other'),
                                                 ],
                                               ),
                                             ],
@@ -545,7 +425,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('Stay-at-home'),
+                                                  const Text('Stay-at-home'),
                                                   Radio(
                                                     value: 'health',
                                                     groupValue: _fJob,
@@ -555,7 +435,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('Health'),
+                                                  const Text('Health'),
                                                 ],
                                               ),
                                               Row(
@@ -569,7 +449,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('Services'),
+                                                  const Text('Services'),
                                                   Radio(
                                                     value: 'teacher',
                                                     groupValue: _fJob,
@@ -579,7 +459,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('Teacher'),
+                                                  const Text('Teacher'),
                                                   Radio(
                                                     value: 'other',
                                                     groupValue: _fJob,
@@ -589,7 +469,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('Other'),
+                                                  const Text('Other'),
                                                 ],
                                               ),
                                             ],
@@ -615,7 +495,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('The Course'),
+                                                  const Text('The Course'),
                                                   Radio(
                                                     value: 'home',
                                                     groupValue: _reason,
@@ -625,7 +505,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('Close to Home'),
+                                                  const Text('Close to Home'),
                                                 ],
                                               ),
                                               Row(
@@ -639,7 +519,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('Reputation'),
+                                                  const Text('Reputation'),
                                                   Radio(
                                                     value: 'other',
                                                     groupValue: _reason,
@@ -649,56 +529,27 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('Other'),
+                                                  const Text('Other'),
                                                 ],
                                               ),
                                             ],
                                           ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Text(
-                                                'Who is Your Guardian?',
-                                                style:
-                                                    TextStyle(fontSize: 18.0),
-                                              ),
-                                              Row(
-                                                children: <Widget>[
-                                                  Radio(
-                                                    value: 'mother',
-                                                    groupValue: _guardian,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _guardian = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  Text('Mother'),
-                                                  Radio(
-                                                    value: 'father',
-                                                    groupValue: _guardian,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _guardian = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  Text('Father'),
-                                                  Radio(
-                                                    value: 'other',
-                                                    groupValue: _guardian,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _guardian = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  Text('Other'),
-                                                ],
-                                              ),
+
+                                          OptionsOneRow(
+                                            question: "Who is your Guardian?",
+                                            options: const [
+                                              Option(
+                                                  text: "Mother",
+                                                  value: "mother"),
+                                              Option(
+                                                  text: "Father",
+                                                  value: "father"),
+                                              Option(
+                                                  text: "Other",
+                                                  value: "other"),
                                             ],
                                           ),
+
                                           Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -721,7 +572,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('<15 min'),
+                                                  const Text('<15 min'),
                                                   Radio(
                                                     value: '2',
                                                     groupValue:
@@ -733,7 +584,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('15 - 30 min'),
+                                                  const Text('15 - 30 min'),
                                                 ],
                                               ),
                                               Row(
@@ -749,7 +600,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('30min to 1hr'),
+                                                  const Text('30min to 1hr'),
                                                   Radio(
                                                     value: '4',
                                                     groupValue:
@@ -761,7 +612,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('>1hr'),
+                                                  const Text('>1hr'),
                                                 ],
                                               ),
                                             ],
@@ -788,7 +639,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('<2 hr'),
+                                                  const Text('<2 hr'),
                                                   Radio(
                                                     value: '2',
                                                     groupValue:
@@ -800,7 +651,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('2-5 hr'),
+                                                  const Text('2-5 hr'),
                                                 ],
                                               ),
                                               Row(
@@ -816,7 +667,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('5-10 hr'),
+                                                  const Text('5-10 hr'),
                                                   Radio(
                                                     value: '4',
                                                     groupValue:
@@ -828,7 +679,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('>10 hr'),
+                                                  const Text('>10 hr'),
                                                 ],
                                               ),
                                             ],
@@ -871,216 +722,52 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                             ],
                                           ),
                                           const SizedBox(height: 10),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              const Text(
-                                                'Do you get extra educational support?',
-                                                style:
-                                                    TextStyle(fontSize: 18.0),
-                                              ),
-                                              Row(
-                                                children: <Widget>[
-                                                  Radio(
-                                                    value: 'yes',
-                                                    groupValue: _schoolSup,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _schoolSup = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  Text('Yes'),
-                                                  Radio(
-                                                    value: 'no',
-                                                    groupValue: _schoolSup,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _schoolSup = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  Text('No'),
-                                                ],
-                                              ),
+                                          OptionsOneRow(
+                                            question:
+                                                "Do you get extra educational support",
+                                            options: const [
+                                              Option(text: "Yes", value: "yes"),
+                                              Option(text: "No", value: "no"),
                                             ],
+                                            groupValue: _schoolSup,
                                           ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Text(
+                                          OptionsOneRow(
+                                            question:
                                                 'Does your family provide you educatonal support?',
-                                                style:
-                                                    TextStyle(fontSize: 18.0),
-                                              ),
-                                              Row(
-                                                children: <Widget>[
-                                                  Radio(
-                                                    value: 'yes',
-                                                    groupValue: _famSup,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _famSup = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  Text('Yes'),
-                                                  Radio(
-                                                    value: 'no',
-                                                    groupValue: _famSup,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _famSup = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  Text('No'),
-                                                ],
-                                              ),
+                                            options: const [
+                                              Option(text: "Yes", value: "yes"),
+                                              Option(text: "No", value: "no"),
                                             ],
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Text(
-                                                'Have You Attended Nursery?',
-                                                style:
-                                                    TextStyle(fontSize: 18.0),
-                                              ),
-                                              Row(
-                                                children: <Widget>[
-                                                  Radio(
-                                                    value: 'yes',
-                                                    groupValue: _nursery,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _nursery = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  Text('Yes'),
-                                                  Radio(
-                                                    value: 'no',
-                                                    groupValue: _nursery,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _nursery = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  Text('No'),
-                                                ],
-                                              ),
-                                            ],
+                                            groupValue: _famSup,
                                           ),
 
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              const Text(
+                                          OptionsOneRow(
+                                            question:
+                                                'Have You Attended Nursery?',
+                                            options: const [
+                                              Option(text: "Yes", value: "yes"),
+                                              Option(text: "No", value: "no"),
+                                            ],
+                                            groupValue: _nursery,
+                                          ),
+
+                                          OptionsOneRow(
+                                            question:
                                                 'Do you want to take higher education?',
-                                                style:
-                                                    TextStyle(fontSize: 18.0),
-                                              ),
-                                              Row(
-                                                children: <Widget>[
-                                                  Radio(
-                                                    value: 'yes',
-                                                    groupValue: _higher,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _higher = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  Text('Yes'),
-                                                  Radio(
-                                                    value: 'no',
-                                                    groupValue: _higher,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _higher = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  Text('No'),
-                                                ],
-                                              ),
+                                            options: const [
+                                              Option(text: "Yes", value: "yes"),
+                                              Option(text: "No", value: "no"),
                                             ],
+                                            groupValue: _higher,
                                           ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              const Text(
-                                                'Do You have Internet Access?',
-                                                style:
-                                                    TextStyle(fontSize: 18.0),
-                                              ),
-                                              Row(
-                                                children: <Widget>[
-                                                  Radio(
-                                                    value: 'yes',
-                                                    groupValue: _internet,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _internet = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  Text('Yes'),
-                                                  Radio(
-                                                    value: 'no',
-                                                    groupValue: _internet,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _internet = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  Text('No'),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              const Text(
+                                          OptionsOneRow(
+                                            question:
                                                 'Are You Engaged in Romantic Relationship?',
-                                                style:
-                                                    TextStyle(fontSize: 18.0),
-                                              ),
-                                              Row(
-                                                children: <Widget>[
-                                                  Radio(
-                                                    value: 'yes',
-                                                    groupValue: _romantic,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _romantic = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  Text('Yes'),
-                                                  Radio(
-                                                    value: 'no',
-                                                    groupValue: _romantic,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _romantic = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  Text('No'),
-                                                ],
-                                              ),
+                                            options: const [
+                                              Option(text: "Yes", value: "yes"),
+                                              Option(text: "No", value: "no"),
                                             ],
+                                            groupValue: _romantic,
                                           ),
 
                                           Column(
@@ -1105,7 +792,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('Very Rarely'),
+                                                  const Text('Very Rarely'),
                                                   Radio(
                                                     value: '2',
                                                     groupValue:
@@ -1117,7 +804,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('Rarely'),
+                                                  const Text('Rarely'),
                                                 ],
                                               ),
                                               Row(
@@ -1133,7 +820,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('Sometimes'),
+                                                  const Text('Sometimes'),
                                                   Radio(
                                                     value: '4',
                                                     groupValue:
@@ -1145,7 +832,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('Often'),
+                                                  const Text('Often'),
                                                 ],
                                               ),
                                               Row(
@@ -1161,7 +848,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                       });
                                                     },
                                                   ),
-                                                  Text('Very Often'),
+                                                  const Text('Very Often'),
                                                 ],
                                               ),
                                             ],
@@ -1234,7 +921,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                             onPressed: () {
                                               _saveData();
                                             },
-                                            child: Text('Submit'),
+                                            child: const Text('Submit'),
                                           ),
                                         ],
                                       ),
@@ -1270,6 +957,25 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
         ),
       ),
     );
+  }
+
+  Future<Map<String, dynamic>> encodeNonNumericData(
+      Map<String, dynamic> inputMap) async {
+    var api = await Api.create();
+
+    var encodedVals = api.reverseEnc;
+    //print("endcodedVals");
+    //print(encodedVals);
+    Map<String, dynamic> dataDecode = {};
+    for (var dataVal in inputMap.entries) {
+      var key = dataVal.key;
+      var value = dataVal.value;
+      var valueDecoded = encodedVals[key]![value];
+      dataDecode[key] = valueDecoded;
+
+      print("$key: $valueDecoded");
+    }
+    return dataDecode;
   }
 
   void _saveData() async {
@@ -1320,24 +1026,5 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
     if (mounted) {
       navigateTo(context, ResultsPage(prediction: pred));
     }
-  }
-
-  Future<Map<String, dynamic>> encodeNonNumericData(
-      Map<String, dynamic> inputMap) async {
-    var api = await Api.create();
-
-    var encodedVals = api.reverseEnc;
-    //print("endcodedVals");
-    //print(encodedVals);
-    Map<String, dynamic> dataDecode = {};
-    for (var dataVal in inputMap.entries) {
-      var key = dataVal.key;
-      var value = dataVal.value;
-      var valueDecoded = encodedVals[key]![value];
-      dataDecode[key] = valueDecoded;
-
-      print("${key}: $valueDecoded");
-    }
-    return dataDecode;
   }
 }

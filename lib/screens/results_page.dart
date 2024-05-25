@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:mlbasic/widgets/blur_component.dart';
 
 import '../utils.dart';
 import '../widgets/text_widget.dart';
