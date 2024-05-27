@@ -4,6 +4,7 @@ import sys
 import io
 import json
 
+import pandas as pd
 from flask import Flask, jsonify, request
 from torchvision import models
 import torch
@@ -46,6 +47,10 @@ def transform_input(input_data):
     data_tensor = torch.tensor(input_data)
     return data_tensor 
 
+def read_json_file(file_path):
+    df = pd.read_json(file_path, orient='records', lines=True)
+    return df
+
 @app.route('/predict', methods=['POST'])
 def predict():
     data = request.get_json(force=True)
@@ -67,6 +72,13 @@ def predict():
     print(type(prediction))
 
     return jsonify({'prediction': prediction})
+
+@app.route('/get-correlations', methods=['GET'])
+def get_data():
+    file_path = "selected_columns.json"
+    df = read_json_file(file_path)
+    data = df.to_dict(orient='records') # to list of dictionaries
+    return jsonify(data)
 
 if __name__ == "__main__":
     app.run(debug=True)
