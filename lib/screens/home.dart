@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mlbasic/screens/secondpage.dart';
 import 'package:mlbasic/widgets/blur_component.dart';
 
+import '../api/api.dart';
 import '../utils.dart';
 import 'questionnair_page.dart';
 
@@ -111,6 +112,9 @@ class _HomePageState extends State<HomePage> {
                       width: double.infinity,
                       widget: Center(
                         child: GestureDetector(
+                          onTap: () {
+                            calll();
+                          },
                           child: const Text(
                             'Predict With Model',
                             style: TextStyle(
@@ -130,5 +134,10 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  void calll() async {
+    var api = await Api.create();
+    api.getCorrelations();
   }
 }

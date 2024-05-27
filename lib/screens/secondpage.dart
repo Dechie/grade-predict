@@ -1,5 +1,8 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:mlbasic/widgets/chart_widget.dart';
+
+import '../api/api.dart';
+import '../widgets/chart_widget.dart';
 
 class SecondPage extends StatefulWidget {
   const SecondPage({super.key});
@@ -9,6 +12,16 @@ class SecondPage extends StatefulWidget {
 }
 
 class _SecondPageState extends State<SecondPage> {
+  List<List<FlSpot>> spotsData = [];
+  List<String> titles = [
+    "G3 vs G1",
+    "G3 vs G2",
+    "G3 vs Medu",
+    "G3 vs age",
+    "G3 vs failures",
+    "G3 vs higher",
+  ];
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -40,10 +53,19 @@ class _SecondPageState extends State<SecondPage> {
                   ],
                 ),
               ),
-              const Expanded(
+              Expanded(
                 flex: 16,
-                child: Center(
-                  child: ChartWidget(),
+                child: SingleChildScrollView(
+                  child: Wrap(
+                    spacing: 20,
+                    runSpacing: 20,
+                    children: List.generate(spotsData.length, (index) {
+                      return ChartWidget(
+                        data: spotsData[index],
+                        title: titles[index],
+                      );
+                    }),
+                  ),
                 ),
               ),
             ],
@@ -51,5 +73,17 @@ class _SecondPageState extends State<SecondPage> {
         ),
       ),
     );
+  }
+
+  void fetchSpots() async {
+    var api = await Api.create();
+    spotsData = await api.getCorrelations();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchSpots();
   }
 }

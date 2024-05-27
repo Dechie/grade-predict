@@ -1,16 +1,12 @@
-import 'package:dio/dio.dart';
-import 'package:flutter/services.dart';
 import 'dart:convert';
+
+import 'package:dio/dio.dart';
+import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/services.dart';
 
 class Api {
   Map<String, Map<String, dynamic>> reverseEnc = {};
   Api._();
-
-  static Future<Api> create() async {
-    var api = Api._();
-    await api.applyValue();
-    return api;
-  }
 
   // asynchronous constructor
 
@@ -18,24 +14,68 @@ class Api {
     reverseEnc = await _loadReverseEncodedJson();
   }
 
-  Future<Map<String, Map<String, dynamic>>> _loadReverseEncodedJson() async {
-    Map<String, Map<String, dynamic>> revv = {};
+  Future<List<List<FlSpot>>> getCorrelations() async {
+    Dio dio = Dio();
+    Response response;
+    List here = [];
+
     try {
-      String reverseEncoded =
-          await rootBundle.loadString('assets/json/reverse_encoded.json');
+      response = await dio.get("http://127.0.0.1:5000/get-correlations");
 
-      Map<String, dynamic> reverseEncodedVals = json.decode(reverseEncoded);
+      if (response.statusCode == 200) {
+        var data = response.data;
+        here = data;
 
-      for (var entry in reverseEncodedVals.entries) {
-        //Map<String, dynamic> keyVal = Map.fromIterable(entry as Iterable);
-        revv[entry.key] = Map<String, dynamic>.from(entry.value);
+        print(data);
       }
-      //print(reverseEnc);
     } catch (e) {
-      print(e);
+      print(e.toString());
     }
 
-    return revv;
+    List<List> cor1 = [], cor2 = [], cor3 = [], cor4 = [], cor5 = [], cor6 = [];
+    for (var entry in here) {
+      for (var ent in entry.entries) {
+        switch (ent.key) {
+          case "G1":
+            cor1.add([ent.value, entry["G3"]]);
+            break;
+          case "G2":
+            cor2.add([ent.value, entry["G3"]]);
+            break;
+          case "Medu":
+            cor3.add([ent.value, entry["G3"]]);
+            break;
+          case "age":
+            cor4.add([ent.value, entry["G3"]]);
+            break;
+          case "failures":
+            cor5.add([ent.value, entry["G3"]]);
+            break;
+          case "higher":
+            cor6.add([ent.value, entry["G3"]]);
+            break;
+        }
+      }
+    }
+
+    List<List<FlSpot>> result = [];
+
+    result.add(
+        cor1.map((e) => FlSpot(e[0].toDouble(), e[1].toDouble())).toList());
+    result.add(
+        cor2.map((e) => FlSpot(e[0].toDouble(), e[1].toDouble())).toList());
+    result.add(
+        cor3.map((e) => FlSpot(e[0].toDouble(), e[1].toDouble())).toList());
+    result.add(
+        cor4.map((e) => FlSpot(e[0].toDouble(), e[1].toDouble())).toList());
+    result.add(
+        cor5.map((e) => FlSpot(e[0].toDouble(), e[1].toDouble())).toList());
+    result.add(
+        cor6.map((e) => FlSpot(e[0].toDouble(), e[1].toDouble())).toList());
+
+    print("result");
+    print(result);
+    return result;
   }
 
   Future<double> sendRequest(Map<String, dynamic> dataDecode) async {
@@ -61,5 +101,31 @@ class Api {
       print(e.toString());
     }
     return prediction;
+  }
+
+  Future<Map<String, Map<String, dynamic>>> _loadReverseEncodedJson() async {
+    Map<String, Map<String, dynamic>> revv = {};
+    try {
+      String reverseEncoded =
+          await rootBundle.loadString('assets/json/reverse_encoded.json');
+
+      Map<String, dynamic> reverseEncodedVals = json.decode(reverseEncoded);
+
+      for (var entry in reverseEncodedVals.entries) {
+        //Map<String, dynamic> keyVal = Map.fromIterable(entry as Iterable);
+        revv[entry.key] = Map<String, dynamic>.from(entry.value);
+      }
+      //print(reverseEnc);
+    } catch (e) {
+      print(e);
+    }
+
+    return revv;
+  }
+
+  static Future<Api> create() async {
+    var api = Api._();
+    await api.applyValue();
+    return api;
   }
 }
