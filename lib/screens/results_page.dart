@@ -2,17 +2,15 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-import '../utils.dart';
 import '../widgets/text_widget.dart';
-import 'secondpage.dart';
 
 class ResultsPage extends StatefulWidget {
+  final double prediction;
+
   const ResultsPage({
     super.key,
     required this.prediction,
   });
-
-  final double prediction;
 
   @override
   State<ResultsPage> createState() => _ResultsPageState();
@@ -42,41 +40,6 @@ class _ResultsPageState extends State<ResultsPage> {
               child: Column(
                 children: [
                   ClipRRect(
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
-                      child: SizedBox(
-                        width: double.infinity,
-                        height: 100,
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.5),
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              CustomText(
-                                text: 'Result',
-                                //color: Colors.grey.shade300.withOpacity(0.75),
-                                color: Colors.black,
-                                fontSize: 18,
-                              ),
-                              const SizedBox(height: 10),
-                              CustomText(
-                                text: widget.prediction.toStringAsFixed(2),
-                                //color: Colors.grey.shade300.withOpacity(0.75),
-                                color: Colors.black,
-                                fontSize: 16,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 30),
-                  ClipRRect(
                     borderRadius: BorderRadius.circular(25),
                     child: BackdropFilter(
                       filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
@@ -95,31 +58,45 @@ class _ResultsPageState extends State<ResultsPage> {
                             child: Column(
                               children: [
                                 Expanded(
-                                  flex: 5,
-                                  child: TextButton(
-                                    onPressed: () {
-                                      navigateTo(context, const SecondPage());
-                                    },
-                                    child: Text(
-                                      'Second Page',
-                                      style: TextStyle(
-                                        color: Colors.white.withOpacity(0.6),
-                                        fontWeight: FontWeight.w700,
+                                    flex: 5,
+                                    child: Center(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          CustomText(
+                                            text: 'Result',
+                                            //color: Colors.grey.shade300.withOpacity(0.75),
+                                            color: Colors.black,
+                                            fontSize: 18,
+                                          ),
+                                          const SizedBox(height: 10),
+                                          CustomText(
+                                            text: widget.prediction
+                                                .toStringAsFixed(2),
+                                            //color: Colors.grey.shade300.withOpacity(0.75),
+                                            color: Colors.black,
+                                            fontSize: 16,
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                  ),
-                                ),
+                                    )),
                                 Expanded(
-                                  flex: 5,
-                                  child: TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text(
-                                      'Back',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w700,
+                                  flex: 2,
+                                  child: SizedBox(
+                                    width: 100,
+                                    height: 30,
+                                    child: TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text(
+                                        'Back',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w700,
+                                        ),
                                       ),
                                     ),
                                   ),

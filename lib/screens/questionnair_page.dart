@@ -2,9 +2,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:mlbasic/models/option.dart';
-import 'package:mlbasic/screens/options_one_row.dart';
 import 'package:mlbasic/screens/results_page.dart';
-import 'package:mlbasic/screens/secondpage.dart';
+import 'package:mlbasic/widgets/options_one_row.dart';
+import 'package:mlbasic/widgets/options_two_rows.dart';
+import 'package:mlbasic/widgets/options_two_rows_numeric.dart';
 import 'package:mlbasic/widgets/text_widget.dart';
 
 import '../api/api.dart';
@@ -59,26 +60,49 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                             color: Colors.white.withOpacity(0.5),
-                            borderRadius: BorderRadius.circular(5),
+                            borderRadius: BorderRadius.circular(15),
                           ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              CustomText(
-                                text: 'Hello Student',
-                                //color: Colors.grey.shade300.withOpacity(0.75),
-                                color: Colors.black,
-                                fontSize: 18,
-                              ),
-                              const SizedBox(height: 10),
-                              CustomText(
-                                text: 'Help Us Fill This Form',
-                                //color: Colors.grey.shade300.withOpacity(0.75),
-                                color: Colors.black,
-                                fontSize: 16,
-                              ),
-                            ],
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 20.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 80,
+                                  width: 50,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    icon: const Icon(Icons.arrow_back_ios),
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                SizedBox(
+                                  height: double.infinity,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      CustomText(
+                                        text: 'Hello Student',
+                                        //color: Colors.grey.shade300.withOpacity(0.75),
+                                        color: Colors.black,
+                                        fontSize: 18,
+                                      ),
+                                      const SizedBox(height: 10),
+                                      CustomText(
+                                        text: 'Help Us Fill This Form',
+                                        //color: Colors.grey.shade300.withOpacity(0.75),
+                                        color: Colors.black,
+                                        fontSize: 16,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -120,6 +144,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                               Option(text: "MS", value: "MS"),
                                             ],
                                             groupValue: _school,
+                                            onChanged: _updateElement("school"),
                                           ),
                                           OptionsOneRow(
                                             question: 'What is you Gender?',
@@ -129,6 +154,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                               Option(text: "Male", value: "M"),
                                             ],
                                             groupValue: _sex,
+                                            onChanged: _updateElement("sex"),
                                           ),
                                           Column(
                                             crossAxisAlignment:
@@ -172,6 +198,8 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                   value: "R"),
                                             ],
                                             groupValue: _address,
+                                            onChanged:
+                                                _updateElement("address"),
                                           ),
                                           OptionsOneRow(
                                             question:
@@ -186,6 +214,8 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                   value: "GT3"),
                                             ],
                                             groupValue: _famSize,
+                                            onChanged:
+                                                _updateElement("famSize"),
                                           ),
 
                                           OptionsOneRow(
@@ -200,339 +230,146 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                   text: 'Together', value: "T"),
                                             ],
                                             groupValue: _pStatus,
+                                            onChanged:
+                                                _updateElement("pStatus"),
+                                          ),
+                                          OptionsTwoRowsNumeric(
+                                            question:
+                                                'What is your Mother\'s educational level?',
+                                            optionsR1: const [
+                                              Option(
+                                                text: "None",
+                                                value: "0",
+                                              ),
+                                              Option(
+                                                  text: "4th Grade",
+                                                  value: "1"),
+                                            ],
+                                            optionsR2: const [
+                                              Option(
+                                                text: "5-9th Grade",
+                                                value: "2",
+                                              ),
+                                              Option(
+                                                text: "Secondary",
+                                                value: "3",
+                                              )
+                                            ],
+                                            groupValue: _mEdu,
+                                            onChanged: _updateElement("mEdu"),
+                                          ),
+                                          OptionsTwoRowsNumeric(
+                                            question:
+                                                'What is your Father\'s educational level?',
+                                            optionsR1: const [
+                                              Option(
+                                                text: "None",
+                                                value: "0",
+                                              ),
+                                              Option(
+                                                  text: "4th Grade",
+                                                  value: "1"),
+                                            ],
+                                            optionsR2: const [
+                                              Option(
+                                                text: "5-9th Grade",
+                                                value: "2",
+                                              ),
+                                              Option(
+                                                text: "Secondary",
+                                                value: "3",
+                                              )
+                                            ],
+                                            groupValue: _fEdu,
+                                            onChanged: _updateElement("fEdu"),
                                           ),
 
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              const Text(
-                                                'What is your mother\'s educational level?',
-                                                style:
-                                                    TextStyle(fontSize: 18.0),
+                                          OptionsTwoRows(
+                                            question:
+                                                "What is your Mother's job?",
+                                            optionsR1: const [
+                                              Option(
+                                                value: "at_home",
+                                                text: "Stay-At-Home",
                                               ),
-                                              Row(
-                                                children: <Widget>[
-                                                  Radio(
-                                                    value: '0',
-                                                    groupValue:
-                                                        _mEdu.toString(),
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _mEdu =
-                                                            int.parse(value!);
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('None'),
-                                                  Radio(
-                                                    value: '1',
-                                                    groupValue:
-                                                        _mEdu.toString(),
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _mEdu =
-                                                            int.parse(value!);
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('4th grade'),
-                                                ],
-                                              ),
-                                              Row(
-                                                children: <Widget>[
-                                                  Radio(
-                                                    value: '2',
-                                                    groupValue:
-                                                        _mEdu.toString(),
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _mEdu =
-                                                            int.parse(value!);
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('5-9th Grade'),
-                                                  Radio(
-                                                    value: '3',
-                                                    groupValue:
-                                                        _mEdu.toString(),
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _mEdu =
-                                                            int.parse(value!);
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('Secondary'),
-                                                ],
+                                              Option(
+                                                value: "health",
+                                                text: "Health",
                                               ),
                                             ],
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              const Text(
-                                                'What is your father\'s educational level?',
-                                                style:
-                                                    TextStyle(fontSize: 18.0),
+                                            optionsR2: const [
+                                              Option(
+                                                value: "services",
+                                                text: "Services",
                                               ),
-                                              Row(
-                                                children: <Widget>[
-                                                  Radio(
-                                                    value: '0',
-                                                    groupValue:
-                                                        _fEdu.toString(),
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _fEdu =
-                                                            int.parse(value!);
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('None'),
-                                                  Radio(
-                                                    value: '1',
-                                                    groupValue:
-                                                        _fEdu.toString(),
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _fEdu =
-                                                            int.parse(value!);
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('4th grade'),
-                                                ],
+                                              Option(
+                                                value: "teacher",
+                                                text: "Teacher",
                                               ),
-                                              Row(
-                                                children: <Widget>[
-                                                  Radio(
-                                                    value: '2',
-                                                    groupValue:
-                                                        _fEdu.toString(),
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _fEdu =
-                                                            int.parse(value!);
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('5-9th Grade'),
-                                                  Radio(
-                                                    value: '3',
-                                                    groupValue:
-                                                        _fEdu.toString(),
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _fEdu =
-                                                            int.parse(value!);
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('Secondary'),
-                                                ],
+                                              Option(
+                                                value: "other",
+                                                text: "Other",
                                               ),
                                             ],
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              const Text(
-                                                'What is your mother\'s job?',
-                                                style:
-                                                    TextStyle(fontSize: 18.0),
-                                              ),
-                                              Row(
-                                                children: <Widget>[
-                                                  Radio(
-                                                    value: 'at_home',
-                                                    groupValue: _mJob,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _mJob = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('housewife'),
-                                                  Radio(
-                                                    value: 'health',
-                                                    groupValue: _mJob,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _mJob = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('health'),
-                                                ],
-                                              ),
-                                              Row(
-                                                children: <Widget>[
-                                                  Radio(
-                                                    value: 'services',
-                                                    groupValue: _mJob,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _mJob = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('Services'),
-                                                  Radio(
-                                                    value: 'teacher',
-                                                    groupValue: _mJob,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _mJob = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('Teacher'),
-                                                  Radio(
-                                                    value: 'other',
-                                                    groupValue: _mJob,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _mJob = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('Other'),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              const Text(
-                                                'What is your Father\'s job?',
-                                                style:
-                                                    TextStyle(fontSize: 18.0),
-                                              ),
-                                              Row(
-                                                children: <Widget>[
-                                                  Radio(
-                                                    value: 'at_home',
-                                                    groupValue: _fJob,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _fJob = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('Stay-at-home'),
-                                                  Radio(
-                                                    value: 'health',
-                                                    groupValue: _fJob,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _fJob = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('Health'),
-                                                ],
-                                              ),
-                                              Row(
-                                                children: <Widget>[
-                                                  Radio(
-                                                    value: 'services',
-                                                    groupValue: _fJob,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _fJob = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('Services'),
-                                                  Radio(
-                                                    value: 'teacher',
-                                                    groupValue: _fJob,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _fJob = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('Teacher'),
-                                                  Radio(
-                                                    value: 'other',
-                                                    groupValue: _fJob,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _fJob = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('Other'),
-                                                ],
-                                              ),
-                                            ],
+                                            groupValue: _mJob,
+                                            onChanged: _updateElement("mJob"),
                                           ),
 
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              const Text(
+                                          OptionsTwoRows(
+                                            question:
+                                                "What is your Father's job?",
+                                            optionsR1: const [
+                                              Option(
+                                                value: "at_home",
+                                                text: "Stay-At-Home",
+                                              ),
+                                              Option(
+                                                value: "health",
+                                                text: "Health",
+                                              ),
+                                            ],
+                                            optionsR2: const [
+                                              Option(
+                                                value: "services",
+                                                text: "Services",
+                                              ),
+                                              Option(
+                                                value: "teacher",
+                                                text: "Teacher",
+                                              ),
+                                              Option(
+                                                value: "other",
+                                                text: "Other",
+                                              ),
+                                            ],
+                                            groupValue: _fJob,
+                                            onChanged: _updateElement("fJob"),
+                                          ),
+                                          OptionsTwoRows(
+                                            question:
                                                 'What is your reason to join this school?',
-                                                style:
-                                                    TextStyle(fontSize: 17.0),
+                                            optionsR1: const [
+                                              Option(
+                                                value: "course",
+                                                text: "The Course",
                                               ),
-                                              Row(
-                                                children: <Widget>[
-                                                  Radio(
-                                                    value: 'course',
-                                                    groupValue: _reason,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _reason = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('The Course'),
-                                                  Radio(
-                                                    value: 'home',
-                                                    groupValue: _reason,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _reason = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('Close to Home'),
-                                                ],
-                                              ),
-                                              Row(
-                                                children: <Widget>[
-                                                  Radio(
-                                                    value: 'reputation',
-                                                    groupValue: _reason,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _reason = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('Reputation'),
-                                                  Radio(
-                                                    value: 'other',
-                                                    groupValue: _reason,
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _reason = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('Other'),
-                                                ],
+                                              Option(
+                                                value: "home",
+                                                text: "Close To Home",
                                               ),
                                             ],
+                                            optionsR2: const [
+                                              Option(
+                                                value: "reputation",
+                                                text: "Reputation",
+                                              ),
+                                              Option(
+                                                value: "other",
+                                                text: "Other",
+                                              ),
+                                            ],
+                                            groupValue: _reason,
+                                            onChanged: _updateElement("reason"),
                                           ),
 
                                           OptionsOneRow(
@@ -548,142 +385,65 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                                   text: "Other",
                                                   value: "other"),
                                             ],
+                                            groupValue: _guardian,
+                                            onChanged:
+                                                _updateElement("guardian"),
+                                          ),
+                                          OptionsTwoRowsNumeric(
+                                            question:
+                                                'How long does it take you to travel from home to school?',
+                                            optionsR1: const [
+                                              Option(
+                                                text: "<15 min",
+                                                value: "1",
+                                              ),
+                                              Option(
+                                                  text: "15-30 min",
+                                                  value: "2"),
+                                            ],
+                                            optionsR2: const [
+                                              Option(
+                                                text: "30 min - 1 hr",
+                                                value: "3",
+                                              ),
+                                              Option(
+                                                text: ">1hr",
+                                                value: "4",
+                                              )
+                                            ],
+                                            groupValue: _travelTime,
+                                            onChanged:
+                                                _updateElement("travelTime"),
                                           ),
 
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              const Text(
-                                                'How long does it take you to travel from home to school?',
-                                                style:
-                                                    TextStyle(fontSize: 18.0),
-                                              ),
-                                              Row(
-                                                children: <Widget>[
-                                                  Radio(
-                                                    value: '1',
-                                                    groupValue:
-                                                        _travelTime.toString(),
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _travelTime =
-                                                            int.parse(value!);
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('<15 min'),
-                                                  Radio(
-                                                    value: '2',
-                                                    groupValue:
-                                                        _travelTime.toString(),
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _travelTime =
-                                                            int.parse(value!);
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('15 - 30 min'),
-                                                ],
-                                              ),
-                                              Row(
-                                                children: <Widget>[
-                                                  Radio(
-                                                    value: '3',
-                                                    groupValue:
-                                                        _travelTime.toString(),
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _travelTime =
-                                                            int.parse(value!);
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('30min to 1hr'),
-                                                  Radio(
-                                                    value: '4',
-                                                    groupValue:
-                                                        _travelTime.toString(),
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _travelTime =
-                                                            int.parse(value!);
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('>1hr'),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              const Text(
+                                          OptionsTwoRowsNumeric(
+                                            question:
                                                 'How many hours do you study per week?',
-                                                style:
-                                                    TextStyle(fontSize: 18.0),
+                                            optionsR1: const [
+                                              Option(
+                                                text: "< 2 hr",
+                                                value: "1",
                                               ),
-                                              Row(
-                                                children: <Widget>[
-                                                  Radio(
-                                                    value: '1',
-                                                    groupValue:
-                                                        _studyTime.toString(),
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _studyTime =
-                                                            int.parse(value!);
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('<2 hr'),
-                                                  Radio(
-                                                    value: '2',
-                                                    groupValue:
-                                                        _studyTime.toString(),
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _studyTime =
-                                                            int.parse(value!);
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('2-5 hr'),
-                                                ],
-                                              ),
-                                              Row(
-                                                children: <Widget>[
-                                                  Radio(
-                                                    value: '3',
-                                                    groupValue:
-                                                        _studyTime.toString(),
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _studyTime =
-                                                            int.parse(value!);
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('5-10 hr'),
-                                                  Radio(
-                                                    value: '4',
-                                                    groupValue:
-                                                        _studyTime.toString(),
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _studyTime =
-                                                            int.parse(value!);
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('>10 hr'),
-                                                ],
+                                              Option(
+                                                text: "2-5 hr",
+                                                value: "2",
                                               ),
                                             ],
+                                            optionsR2: const [
+                                              Option(
+                                                text: "5 - 10 hr",
+                                                value: "3",
+                                              ),
+                                              Option(
+                                                text: ">10hr",
+                                                value: "4",
+                                              )
+                                            ],
+                                            groupValue: _studyTime,
+                                            onChanged:
+                                                _updateElement("studyTime"),
                                           ),
+
                                           Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -730,6 +490,8 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                               Option(text: "No", value: "no"),
                                             ],
                                             groupValue: _schoolSup,
+                                            onChanged:
+                                                _updateElement("schoolSup"),
                                           ),
                                           OptionsOneRow(
                                             question:
@@ -739,6 +501,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                               Option(text: "No", value: "no"),
                                             ],
                                             groupValue: _famSup,
+                                            onChanged: _updateElement("famSup"),
                                           ),
 
                                           OptionsOneRow(
@@ -749,6 +512,8 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                               Option(text: "No", value: "no"),
                                             ],
                                             groupValue: _nursery,
+                                            onChanged:
+                                                _updateElement("nursery"),
                                           ),
 
                                           OptionsOneRow(
@@ -759,6 +524,18 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                               Option(text: "No", value: "no"),
                                             ],
                                             groupValue: _higher,
+                                            onChanged: _updateElement("higher"),
+                                          ),
+                                          OptionsOneRow(
+                                            question:
+                                                'Do you have internet access?',
+                                            options: const [
+                                              Option(text: "Yes", value: "yes"),
+                                              Option(text: "No", value: "no"),
+                                            ],
+                                            groupValue: _internet,
+                                            onChanged:
+                                                _updateElement("internet"),
                                           ),
                                           OptionsOneRow(
                                             question:
@@ -768,91 +545,42 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                               Option(text: "No", value: "no"),
                                             ],
                                             groupValue: _romantic,
+                                            onChanged:
+                                                _updateElement("romantic"),
                                           ),
 
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              const Text(
+                                          OptionsTwoRowsNumeric(
+                                            question:
                                                 'How often do you go out with friends?',
-                                                style:
-                                                    TextStyle(fontSize: 18.0),
+                                            specialCase: true,
+                                            optionsR1: const [
+                                              Option(
+                                                text: "Very Rarely",
+                                                value: "1",
                                               ),
-                                              Row(
-                                                children: <Widget>[
-                                                  Radio(
-                                                    value: '1',
-                                                    groupValue:
-                                                        _goOut.toString(),
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _goOut =
-                                                            int.parse(value!);
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('Very Rarely'),
-                                                  Radio(
-                                                    value: '2',
-                                                    groupValue:
-                                                        _goOut.toString(),
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _goOut =
-                                                            int.parse(value!);
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('Rarely'),
-                                                ],
-                                              ),
-                                              Row(
-                                                children: <Widget>[
-                                                  Radio(
-                                                    value: '3',
-                                                    groupValue:
-                                                        _goOut.toString(),
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _goOut =
-                                                            int.parse(value!);
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('Sometimes'),
-                                                  Radio(
-                                                    value: '4',
-                                                    groupValue:
-                                                        _goOut.toString(),
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _goOut =
-                                                            int.parse(value!);
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('Often'),
-                                                ],
-                                              ),
-                                              Row(
-                                                children: <Widget>[
-                                                  Radio(
-                                                    value: '5',
-                                                    groupValue:
-                                                        _goOut.toString(),
-                                                    onChanged: (String? value) {
-                                                      setState(() {
-                                                        _goOut =
-                                                            int.parse(value!);
-                                                      });
-                                                    },
-                                                  ),
-                                                  const Text('Very Often'),
-                                                ],
+                                              Option(
+                                                text: "Rarely",
+                                                value: "2",
                                               ),
                                             ],
+                                            optionsR2: const [
+                                              Option(
+                                                text: "Sometimes",
+                                                value: "3",
+                                              ),
+                                              Option(
+                                                text: "Often",
+                                                value: "4",
+                                              ),
+                                              Option(
+                                                text: "Very Often",
+                                                value: "5",
+                                              )
+                                            ],
+                                            groupValue: _goOut,
+                                            onChanged: _updateElement("goOut"),
                                           ),
+
                                           Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -916,29 +644,22 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
                                               ),
                                             ],
                                           ),
-                                          const SizedBox(height: 15),
-                                          ElevatedButton(
-                                            onPressed: () {
-                                              _saveData();
-                                            },
-                                            child: const Text('Submit'),
-                                          ),
                                         ],
                                       ),
                                     ),
                                   ),
                                 ),
                                 Expanded(
-                                  flex: 5,
-                                  child: TextButton(
-                                    onPressed: () {
-                                      navigateTo(context, const SecondPage());
-                                    },
-                                    child: Text(
-                                      'Second Page',
-                                      style: TextStyle(
-                                        color: Colors.white.withOpacity(0.6),
-                                        fontWeight: FontWeight.w700,
+                                  flex: 2,
+                                  child: SizedBox(
+                                    width: double.infinity,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 8.0),
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          _saveData();
+                                        },
+                                        child: const Text('Submit'),
                                       ),
                                     ),
                                   ),
@@ -982,6 +703,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
     if (!_formKey.currentState!.validate()) {
       return;
     }
+    print("saved vals: $_sex, $_address $_famSup");
     _formKey.currentState!.save();
 
     Map<String, dynamic> nonNumericData = {
@@ -1026,5 +748,74 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
     if (mounted) {
       navigateTo(context, ResultsPage(prediction: pred));
     }
+  }
+
+  ValueChanged<String> _updateElement(String key) {
+    return (String value) {
+      setState(() {
+        switch (key) {
+          case "sex":
+            _sex = value;
+            break;
+          case "address":
+            _address = value;
+            break;
+          case "mJob":
+            _mJob = value;
+            break;
+          case "fJob":
+            _fJob = value;
+            break;
+          case "famSup":
+            _famSup = value;
+            break;
+          case "school":
+            _school = value;
+            break;
+          case "nursery":
+            _nursery = value;
+            break;
+          case "pStatus":
+            _pStatus = value;
+            break;
+          case "guardian":
+            _guardian = value;
+            break;
+          case "famSize":
+            _famSize = value;
+            break;
+          case "schoolSup":
+            _schoolSup = value;
+            break;
+          case "reason":
+            _reason = value;
+            break;
+          case "higher":
+            _higher = value;
+            break;
+          case "internet":
+            _internet = value;
+            break;
+          case "romantic":
+            _romantic = value;
+            break;
+          case "mEdu":
+            _mEdu = int.parse(value);
+            break;
+          case "fEdu":
+            _fEdu = int.parse(value);
+            break;
+          case "travelTime":
+            _travelTime = int.parse(value);
+            break;
+          case "studyTime":
+            _studyTime = int.parse(value);
+            break;
+          case "goOut":
+            _goOut = int.parse(value);
+            break;
+        }
+      });
+    };
   }
 }

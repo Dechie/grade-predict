@@ -1,0 +1,20 @@
+"sex": _sex,
+"address": _address,
+"famsup": _famSup,
+"Mjob": _mJob,
+"Fjob": _fJob,
+"school": _school,
+"nursery": _nursery,
+"Pstatus": _pStatus,
+"guardian": _guardian,
+"famsize": _famSize,
+"schoolsup": _schoolSup,
+"reason": _reason,
+"higher": _higher,
+"internet": _internet,
+"romantic": _romantic
+
+
+goout
+studytime
+traveltime

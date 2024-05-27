@@ -1,6 +1,7 @@
 import 'dart:ui';
-import 'package:flutter/material.dart';
+
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/material.dart';
 
 class ChartWidget extends StatelessWidget {
   const ChartWidget({super.key});
@@ -91,7 +92,16 @@ class ChartWidget extends StatelessWidget {
               aspectRatio: 1,
               child: ScatterChart(
                 ScatterChartData(
-                  scatterSpots: data.map((e) => ScatterSpot(e.x, e.y)).toList(),
+                  scatterSpots: data
+                      .map(
+                        (e) => ScatterSpot(
+                          e.x,
+                          e.y,
+                          dotPainter:
+                              FlDotCirclePainter(color: Colors.blueAccent),
+                        ),
+                      )
+                      .toList(),
                 ),
               ),
             ),
