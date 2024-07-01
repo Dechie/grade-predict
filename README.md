@@ -1,6 +1,5 @@
-# mlbasic
+# Grade-predict 
 
-A new Flutter project.
 
 ![Android Emulator Running The Flutter App frontend. The Flutter application presents a form. The form will be filled, converted into data that the model can understand, and sent to the API.](demos/img1.png)
 **Android Emulator Running The Flutter App frontend. The Flutter application presents a form. The form will be filled, converted into data that the model can understand, and sent to the API.**
